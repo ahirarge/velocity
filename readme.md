@@ -40,7 +40,8 @@ Kurulumdan sonra içeri aktar işlemlerini tanımlamalısınız;
 ```
 php artisan migrate --package=ahir/velocity
 php artisan config:publish ahir/velocity
-php artisan migrate ahir/velocity
+php artisan asset:publish ahir/boothead
+
 ```
 
 `app/start/global.php` altında aşağıdaki düzenlemeleri yapınız.
