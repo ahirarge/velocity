@@ -1,15 +1,16 @@
 # Velocity
 
-Velocity Laravel 4.2 için hazırlanmış bir istek analizi kütüphanesidir. Uygulamanıza yapılan her isteğe göre çalışma zamanını veritabanına kaydeden ve dilediğiniz zaman analizleri görüntülemenizi sağlayan bir kütüphanedir.
-
-## Ekran Görüntüsü
-
-![alt text](http://ahir.com.tr/packages-images/velocity.jpg "Ekran Görüntüsü")
+Velocity is a url analyzer for Laravel 4. Velocity saves every request information to database. You  can review log at any time.
 
 
-## Kurulum
+## Screenshot
 
-`composer.json` dosyasınıza aşağıdaki şekilde düzenleyiniz:
+![alt text](http://ahir.com.tr/packages-images/velocity.jpg "Screenshot")
+
+
+## Installation
+
+To install through composer, simply put the following in your `composer.json` file:
 
 ```json
 {
@@ -18,24 +19,23 @@ Velocity Laravel 4.2 için hazırlanmış bir istek analizi kütüphanesidir. Uy
     }
 }
 ```
+After installing the package, open your Laravel config file `app/config/app.php` and add the following lines.
 
-`app/config/app.php` dosyasını açın ve aşağıdaki satırları dahil edin. 
-
-`providers` dizisine bu bölüm;
+In the $providers array add the following service provider for this package;
 
 ```php
 'Ahir\Velocity\VelocityServiceProvider',
 ```
 
-`aliases` dizisine bu bölüm;
+Add the `Velocity` facades to the `aliases` in `app/config/app.php`:
 
 ```php
 'Velocity' => 'Ahir\Velocity\Facades\Velocity',
 ```
 
-## Konfigürasyon
+## Configuration
 
-Kurulumdan sonra içeri aktar işlemlerini tanımlamalısınız;
+You must run the following code on the console;
 
 ```
 php artisan migrate --package=ahir/velocity
@@ -44,8 +44,9 @@ php artisan asset:publish ahir/boothead
 
 ```
 
-`app/start/global.php` altında aşağıdaki düzenlemeleri yapınız.
+The following arrangements should be made.
 
+ `app/start/global.php`
 ```php 
 App::before(function($request)
 {
@@ -60,8 +61,7 @@ App::after(function($request, $response)
 Event::listen('ahir.velocity', 'Ahir\Velocity\Velocity@handle');
 ```
 
-Daha sonra `app/controllers/BaseController.php` dosyası içerisinde aşağıdaki olay tetiklemelerini dahil ediniz;
-
+`app/controllers/BaseController.php`
 ```php
 /**
  * Construct 
@@ -74,12 +74,11 @@ public function __construct()
 }
 ```
 
-Bu şekilde bir tanımlama yaptığınızda tüm controllerlar izlenecektir. Ancak dilerseniz BaseController yerine spesefik controller tanımlaması da yapabilirsiniz. Ayrıca izlenmesini istemediğiniz url'leri ayar dosyası içerisinde bulunan `ban_url_array` dizisine ekleyerek izlemeden çıkartabilirsiniz.
+If you don't want to tracked a URL, you must define it in the configuration file. `ban_url_array` parameter can be used for this operation.
 
+## Analysis
 
-## İnceleme 
-
-Paketi kurduktan sonra `domain.com/ahir/velocity` adresi üzerinden takip işlemlerini gerçekleştirebilirsiniz.
+You can use this URL to examine all requests; `domain.com/ahir/velocity`
 
 
 

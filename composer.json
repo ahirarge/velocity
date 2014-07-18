@@ -1,7 +1,7 @@
 {
     "name": "ahir/velocity",
-    "description": "Laravel için url analiz paketi.",
-    "keywords": ["laravel", "profiler", "requests"],
+    "description": "Velocity is a url analyzer for Laravel 4.",
+    "keywords": ["laravel", "url", "analyzer", "profiler", "requests"],
     "authors": [
         {
             "name": "Ahir Ar-Ge",
