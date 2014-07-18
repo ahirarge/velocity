@@ -80,6 +80,8 @@ If you don't want to tracked a URL, you must define it in the configuration file
 
 You can use this URL to examine all requests; `domain.com/ahir/velocity`
 
+## License
 
+GPL
 
 
