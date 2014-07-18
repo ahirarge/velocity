@@ -30,3 +30,11 @@ Route::get('ahir/velocity/stats',
 	);
 
 
+# Detail
+
+Route::get('ahir/velocity/row_detail/{id}', 
+		array(
+			'before' => Config::get('velocity::monitor_filter'), 
+			'uses' => 'VelocityDetailController@getDetail'
+		)
+	);

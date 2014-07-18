@@ -19,23 +19,7 @@
 			<?php if ($lives !== false) : ?>
 				<?php foreach ($lives as $key => $value) : ?>
 					<tr>
-						<td>
-							<strong>
-								{{ ( ($lives->getCurrentPage() - 1) * 15 + $key + 1) }})
-							</strong>
-						</td>
-						<td>
-							@if ($value->method == 'GET')
-								<span class="label label-success">
-									{{ $value->method }}
-								</span>
-							@else 
-								<span class="label label-danger">
-									{{ $value->method }}
-								</span>
-							@endif 
-						</td>
-						<td>{{ $value->url }}</td>
+						@include('velocity::row')
 						<td>{{ $value->controller }}</td>
 						<td class="text-right">
 							{{ Velocity::sizeToStr($value->memory_usage) }}

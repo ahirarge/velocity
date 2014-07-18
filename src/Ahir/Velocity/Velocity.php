@@ -84,7 +84,9 @@ class Velocity {
         foreach ($this->data as $key => $value) {
             $model->{$key} = $value;
         }
-        if (in_array($model->url, Config::get('velocity::ban_url_array'))) return;
+        foreach (Config::get('velocity::ban_url_array') as $key => $value) {
+            if (strpos($model->url, $value) !== false) return;
+        }
         $model->save();
     }
 
