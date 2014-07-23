@@ -2,6 +2,7 @@
     "name": "ahir/velocity",
     "description": "Velocity is a url analyzer for Laravel 4.",
     "keywords": ["laravel", "url", "analyzer", "profiler", "requests"],
+    "license": "GPL",
     "authors": [
         {
             "name": "Ahir Ar-Ge",
