@@ -17,13 +17,9 @@
 	@endif 
 </td>
 <td>
-	<a href="/ahir/velocity/url_detail/{{ $value->id }}">
-		{{ $value->url }}
-	</a>
+	{{ $value->url }}
 </td>
 <td>
-	<a href="/ahir/velocity/controller_detail/{{ $value->id }}">
-		{{ $value->controller }}
-	</a>
+	{{ $value->controller }}
 </td>
 
