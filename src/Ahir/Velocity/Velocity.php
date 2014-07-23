@@ -44,6 +44,7 @@ class Velocity {
     {
         if (!Config::get('velocity::active')) return false;
         $this->data = Session::get('ahir.velocity.data');
+        if ($this->data === null) return false;
         $this->data->response_time = number_format($this->getTime() - Session::get('ahir.velocity.start'), 4);
         $this->data->memory_usage = memory_get_usage();
         $this->insertToModel();
