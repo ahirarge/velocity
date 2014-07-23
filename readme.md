@@ -40,7 +40,7 @@ You must run the following code on the console;
 ```
 php artisan migrate --package=ahir/velocity
 php artisan config:publish ahir/velocity
-php artisan asset:publish ahir/boothead
+php artisan asset:publish ahir/velocity
 
 ```
 
