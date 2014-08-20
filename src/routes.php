@@ -1,40 +1,16 @@
 <?php 
 
-# Stats
-Route::get('ahir/velocity', 
-		array(
-			'before' => Config::get('velocity::monitor_filter'), 
-			'uses' => 'VelocityStatsController@getLive'
-		)
-	);
-
-Route::get('ahir/velocity/slowspeed', 
-		array(
-			'before' => Config::get('velocity::monitor_filter'), 
-			'uses' => 'VelocityStatsController@getSlowspeed'
-		)
-	);
-
-Route::get('ahir/velocity/memory_usage', 
-		array(
-			'before' => Config::get('velocity::monitor_filter'), 
-			'uses' => 'VelocityStatsController@getMemoryUsage'
-		)
-	);
-
-Route::get('ahir/velocity/stats', 
-		array(
-			'before' => Config::get('velocity::monitor_filter'), 
-			'uses' => 'VelocityStatsController@getStats'
-		)
-	);
+Route::group(
+	array(
+		'prefix' => 'ahir/velocity',
+		'before' => Config::get('velocity::monitor_filter')
+	), function() {
+		Route::get('/', 'VelocityStatsController@getLive');
+		Route::get('slowspeed', 'VelocityStatsController@getSlowspeed');
+		Route::get('memory_usage', 'VelocityStatsController@getMemoryUsage');
+		Route::get('stats', 'VelocityStatsController@getStats');
+		Route::get('row_detail/{id}', 'VelocityDetailController@getDetail');
+	}
+);
 
 
-# Detail
-
-Route::get('ahir/velocity/row_detail/{id}', 
-		array(
-			'before' => Config::get('velocity::monitor_filter'), 
-			'uses' => 'VelocityDetailController@getDetail'
-		)
-	);

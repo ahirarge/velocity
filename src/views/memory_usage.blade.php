@@ -20,7 +20,6 @@
 				<?php foreach ($lives as $key => $value) : ?>
 					<tr>
 						@include('velocity::row')
-						<td>{{ $value->controller }}</td>
 						<td class="text-right">
 							{{ Velocity::sizeToStr($value->memory_usage) }}
 						</td>

@@ -20,7 +20,6 @@
 				<?php foreach ($lives as $key => $value) : ?>
 					<tr>
 						@include('velocity::row')
-						<td>{{ $value->controller }}</td>
 						<td class="text-right">
 							<strong>
 								{{ number_format($value->response_time, 4) }}
