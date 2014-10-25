@@ -1,6 +1,6 @@
 # Velocity
 
-Velocity is a url analyzer for Laravel 4. Velocity saves every request information to database. You  can review log at any time.
+Velocity is a url analyzer for Laravel 4. It saves every request information to database and you  can review log at any time.
 
 
 ## Screenshot
