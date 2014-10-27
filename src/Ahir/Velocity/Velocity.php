@@ -1,10 +1,11 @@
 <?php namespace Ahir\Velocity;
 
-use Session;
-use Input;
-use Request;
-use Config;
-use View;
+use Session, 
+    Input, 
+    Request,
+    Config,
+    View,
+    Ahir\Velocity\Models\Logs;
 
 class Velocity {
 
@@ -19,6 +20,10 @@ class Velocity {
         Session::flash('ahir.velocity.start', $this->getTime());
     }
 
+    /**
+     * Handling to requests
+     *
+     */
     public function handle($data)
     {
         if (!Config::get('velocity::active')) return false;
@@ -33,7 +38,6 @@ class Velocity {
                 )
             );
     }
-
 
     /**
      * Bench
@@ -81,7 +85,7 @@ class Velocity {
      */
     private function insertToModel()
     {
-        $model = new VelocityModel;
+        $model = new Logs;
         foreach ($this->data as $key => $value) {
             $model->{$key} = $value;
         }
