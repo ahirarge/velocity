@@ -43,7 +43,6 @@ php artisan config:publish ahir/velocity
 php artisan asset:publish ahir/velocity
 
 ```
-
 The following arrangements should be made.
 
  `app/start/global.php`
@@ -57,8 +56,6 @@ App::after(function($request, $response)
 {
     Velocity::stop();
 });
-
-Event::listen('ahir.velocity', 'Ahir\Velocity\Velocity@handle');
 ```
 
 `app/controllers/BaseController.php`
