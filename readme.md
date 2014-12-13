@@ -70,7 +70,7 @@ Event::listen('ahir.velocity', 'Ahir\Velocity\Velocity@handle');
  */
 public function __construct()
 {
-	Event::fire('ahir.velocity', $this);
+	Velocity::handle();
 }
 ```
 

@@ -1,13 +1,48 @@
 <?php namespace Ahir\Velocity;
 
-use Session, 
-    Input, 
-    Request,
-    Config,
-    View,
-    Ahir\Velocity\Models\Logs;
+use Input, Request, Config;
+use Ahir\Velocity\Models\Logs;
 
 class Velocity {
+
+    /**
+     * Package activation status
+     * 
+     * @var boolean
+     */
+    private $active = false;
+
+    /**
+     * Starting time  
+     * 
+     * @var integer
+     */
+    private $start;
+
+    /**
+     * Request informations 
+     *
+     * @var array
+     */
+    private $informations = [];
+
+    /**
+     * Banned urls 
+     *
+     * @var array
+     */
+    private $bans = [];
+
+    /**
+     * Constructer 
+     *
+     * @return null
+     */
+    public function __construct()
+    {
+        $this->active = Config::get('velocity::active');
+        $this->bans   = Config::get('velocity::ban_url_array');
+    }
 
     /**
      * Start
@@ -16,8 +51,9 @@ class Velocity {
      */
     public function start()
     {
-        if (!Config::get('velocity::active')) return false;
-        Session::flash('ahir.velocity.start', $this->getTime());
+        if ($this->active) {
+            $this->start = $this->getTime();
+        }
     }
 
     /**
@@ -26,17 +62,14 @@ class Velocity {
      */
     public function handle($data)
     {
-        if (!Config::get('velocity::active')) return false;
-        Session::flash(
-                'ahir.velocity.data', 
-                (object) array(
-                    'url' => Request::path(),
-                    'method' => Request::method(),
+        if ($this->active) {   
+            $this->informations = (object) [
+                    'url'        => Request::path(),
+                    'method'     => Request::method(),
                     'controller' => get_class($data),
-                    'post_data' => json_encode(Input::all()),
-
-                )
-            );
+                    'post_data'  => json_encode(Input::all()),
+                ];
+        }
     }
 
     /**
@@ -46,12 +79,14 @@ class Velocity {
      */
     public function stop()
     {
-        if (!Config::get('velocity::active')) return false;
-        $this->data = Session::get('ahir.velocity.data');
-        if ($this->data === null) return false;
-        $this->data->response_time = number_format($this->getTime() - Session::get('ahir.velocity.start'), 4);
-        $this->data->memory_usage = memory_get_usage();
-        $this->insertToModel();
+        if ($this->active) {   
+            if (!is_object($this->informations)) {
+                return false;
+            }
+            $this->informations->response_time = $this->getResponseTime();
+            $this->informations->memory_usage  = memory_get_usage();
+            $this->insertToModel();
+        }
     }
 
     /**
@@ -79,6 +114,18 @@ class Velocity {
     }
 
     /**
+     * Getting response time 
+     *
+     * @return string
+     */
+    private function getResponseTime()
+    {
+        return number_format(
+                $this->getTime() - $this->start, 4
+            );
+    }
+
+    /**
      * Insert To Model
      *
      * @return null
@@ -86,10 +133,10 @@ class Velocity {
     private function insertToModel()
     {
         $model = new Logs;
-        foreach ($this->data as $key => $value) {
+        foreach ($this->informations as $key => $value) {
             $model->{$key} = $value;
         }
-        foreach (Config::get('velocity::ban_url_array') as $key => $value) {
+        foreach ($this->bans as $key => $value) {
             if (strpos($model->url, $value) !== false) return;
         }
         $model->save();
