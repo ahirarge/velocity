@@ -79,6 +79,6 @@ You can use this URL to examine all requests; `domain.com/ahir/velocity`
 
 ## License
 
-GPL
+MIT
 
 
