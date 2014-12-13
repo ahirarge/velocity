@@ -67,7 +67,7 @@ App::after(function($request, $response)
  */
 public function __construct()
 {
-	Velocity::handle();
+	Velocity::handle($this);
 }
 ```
 
