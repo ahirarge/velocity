@@ -3,11 +3,6 @@
 Velocity is a url analyzer for Laravel 4. It saves every request information to database and you  can review log at any time.
 
 
-## Screenshot
-
-![alt text](http://ahir.com.tr/packages-images/velocity.jpg "Screenshot")
-
-
 ## Installation
 
 To install through composer, simply put the following in your `composer.json` file:
